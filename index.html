@@ -228,5 +228,45 @@ function toggleDark(){
   localStorage.setItem('dark',document.body.classList.contains('dark')?'1':'0');
 }
 drawAll();
+</script><!-- 新增功能：周/月平均、腿部护理清单、本地图片对比 --><section class="card">
+  <h2 onclick="toggleSection(this)">八、周 / 月平均值</h2>
+  <div class="content">
+    <button onclick="calcAverage('week')">计算近7天平均</button>
+    <button onclick="calcAverage('month')">计算近30天平均</button>
+    <pre id="avgResult">暂无计算结果</pre>
+  </div>
+</section><section class="card">
+  <h2 onclick="toggleSection(this)">九、腿部护理 Checklist</h2>
+  <div class="content">
+    <label><input type="checkbox"> 今日穿弹力袜 ≥8小时</label><br>
+    <label><input type="checkbox"> 抬高下肢 ≥2次</label><br>
+    <label><input type="checkbox"> 已保湿（早 / 晚）</label><br>
+    <label><input type="checkbox"> 无明显瘙痒 / 破皮</label>
+  </div>
+</section><section class="card">
+  <h2 onclick="toggleSection(this)">十、腿部图片对比（本地）</h2>
+  <div class="content">
+    <input type="file" accept="image/*" onchange="loadImage(event)">
+    <br><img id="previewImg" style="max-width:100%;margin-top:10px;display:none;">
+    <p style="font-size:0.9em;opacity:0.7">图片仅在本地浏览器中显示，不上传、不保存</p>
+  </div>
+</section><script>
+function calcAverage(range){
+  const data = JSON.parse(localStorage.getItem('dailyData')||'[]');
+  const days = range==='week'?7:30;
+  const slice = data.slice(-days);
+  if(slice.length===0){document.getElementById('avgResult').textContent='暂无数据';return;}
+  const avg = (key)=> (slice.reduce((s,d)=>s+(+d[key]||0),0)/slice.length).toFixed(1);
+  document.getElementById('avgResult').textContent =
+    `体重均值: ${avg('weight')} lb
+收缩压均值: ${avg('sys')}
+舒张压均值: ${avg('dia')}
+心率均值: ${avg('hr')}`;
+}
+function loadImage(e){
+  const img=document.getElementById('previewImg');
+  img.src=URL.createObjectURL(e.target.files[0]);
+  img.style.display='block';
+}
 </script></body>
 </html>
