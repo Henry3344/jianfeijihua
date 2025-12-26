@@ -1,202 +1,159 @@
 <!DOCTYPE html><html lang="zh-CN">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>个人健康与减脂管理方案</title>
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
-      line-height: 1.7;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
       background: #f7f9fb;
       color: #222;
+      line-height: 1.7;
+      transition: background .3s, color .3s;
     }
-    header {
-      background: #2c7be5;
-      color: #fff;
-      padding: 20px;
-    }
-    header h1 { margin: 0 0 6px 0; font-size: 24px; }
-    header p { margin: 0; opacity: 0.9; }
-    nav {
-      position: sticky;
-      top: 0;
-      background: #ffffffee;
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid #e5e7eb;
-      z-index: 10;
-    }
-    nav ul {
-      display: flex;
-      flex-wrap: wrap;
-      list-style: none;
-      margin: 0;
-      padding: 10px 16px;
-      gap: 12px;
-    }
-    nav a {
-      text-decoration: none;
-      color: #2c7be5;
-      font-weight: 500;
-      font-size: 14px;
-    }
-    main { max-width: 900px; margin: 0 auto; padding: 20px; }
-    section {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    h2 { margin-top: 0; font-size: 22px; border-left: 4px solid #2c7be5; padding-left: 10px; }
-    h3 { margin-top: 16px; margin-bottom: 6px; }
-    ul { padding-left: 20px; }
-    li { margin-bottom: 6px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      background: #f1f5fb;
-      border-radius: 10px;
-      padding: 16px;
-    }
-    .tag {
-      display: inline-block;
-      background: #e7f0ff;
-      color: #2c7be5;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      margin-right: 6px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    th, td {
-      border: 1px solid #e5e7eb;
-      padding: 8px;
-      text-align: center;
-    }
+    body.dark { background: #020617; color: #e5e7eb; }
+    header { background: #2563eb; color: #fff; padding: 20px; }
+    nav { position: sticky; top: 0; background: #ffffffee; border-bottom: 1px solid #e5e7eb; }
+    body.dark nav { background: #020617ee; border-color: #334155; }
+    nav ul { display: flex; flex-wrap: wrap; list-style: none; margin: 0; padding: 10px; gap: 12px; }
+    nav a { text-decoration: none; color: #2563eb; font-weight: 500; }
+    body.dark nav a { color: #93c5fd; }
+    main { max-width: 960px; margin: auto; padding: 20px; }
+    section { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    body.dark section { background: #020617; }
+    h2 { margin-top: 0; border-left: 4px solid #2563eb; padding-left: 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { border: 1px solid #e5e7eb; padding: 6px; text-align: center; }
+    body.dark th, body.dark td { border-color: #334155; }
     th { background: #f1f5fb; }
-    input {
-      width: 100%;
-      padding: 6px;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-    footer {
-      text-align: center;
-      color: #666;
-      padding: 20px;
-      font-size: 13px;
-    }
-    @media (prefers-color-scheme: dark) {
-      body { background: #0f172a; color: #e5e7eb; }
-      section { background: #020617; }
-      nav { background: #020617ee; }
-      table, th, td { border-color: #334155; }
-      th { background: #020617; }
+    body.dark th { background: #020617; }
+    input, textarea, button { padding: 6px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 14px; }
+    button { cursor: pointer; background: #2563eb; color: #fff; border: none; }
+    canvas { width: 100%; max-height: 220px; }
+    .tools { display:flex; gap:10px; flex-wrap:wrap; }
+    @media print {
+      nav, .tools, button { display: none !important; }
+      body { background: #fff; color: #000; }
+      section { box-shadow: none; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>个人健康与减脂管理方案</h1>
-    <p>长期管理 · 可迭代 · 低负担</p>
-  </header>  <nav>
-    <ul>
-      <li><a href="#goal">目标</a></li>
-      <li><a href="#diet">饮食</a></li>
-      <li><a href="#routine">作息</a></li>
-      <li><a href="#skin">腿与皮肤</a></li>
-      <li><a href="#record">每日记录</a></li>
-    </ul>
-  </nav>  <main>
-    <section id="goal">
-      <h2>一、核心目标</h2>
-      <ul>
-        <li>稳步减脂（不反弹）</li>
-        <li>降低下肢静脉压力</li>
-        <li>控制血压与心率</li>
-        <li>长期可执行</li>
-      </ul>
-    </section><section id="diet">
-  <h2>二、饮食结构</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>早餐（极简）</h3>
-      <ul>
-        <li>鸡蛋 1 个</li>
-        <li>或 牛奶 / 酸奶</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>午餐</h3>
-      <ul>
-        <li>蛋白质 + 蔬菜</li>
-        <li>主食不过量</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>晚餐</h3>
-      <ul>
-        <li>鸡蛋 / 瘦肉</li>
-        <li>土豆 ≤300g 或 红薯 ≤200g</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="routine">
-  <h2>三、活动与作息</h2>
+<header>
+  <h1>个人健康与减脂管理方案</h1>
+  <p>长期管理 · 可视化 · 可导出</p>
+</header><nav>
+  <ul>
+    <li><a href="#goal">目标</a></li>
+    <li><a href="#diet">饮食</a></li>
+    <li><a href="#routine">活动</a></li>
+    <li><a href="#skin">腿与皮肤</a></li>
+    <li><a href="#record">记录</a></li>
+    <li><a href="#trend">趋势</a></li>
+    <li><a href="#tools">工具</a></li>
+  </ul>
+</nav><main>
+<section id="goal">
+  <h2>一、核心目标</h2>
+  <ul>
+    <li>稳步减脂，避免反弹</li>
+    <li>改善下肢静脉回流</li>
+    <li>降低血压与静息心率</li>
+    <li>皮肤逐步恢复</li>
+  </ul>
+</section><section id="diet">
+  <h2>二、饮食原则</h2>
+  <ul>
+    <li>土豆 / 红薯作为主食替代</li>
+    <li>高蛋白 + 高钾 + 低盐</li>
+    <li>微波炉可完成</li>
+  </ul>
+</section><section id="routine">
+  <h2>三、活动与静脉管理</h2>
   <ul>
     <li>下班步行约 1.4 英里</li>
-    <li>避免久坐，每小时活动小腿</li>
+    <li>久坐每小时活动小腿</li>
     <li>白天穿 15–20 mmHg 静脉袜</li>
   </ul>
-</section>
-
-<section id="skin">
-  <h2>四、腿部与皮肤观察</h2>
-  <ul>
-    <li>每日 2 次保湿（Eucerin）</li>
-    <li>凡士林点涂干燥区域</li>
-    <li>观察颜色、脱屑、出血点变化</li>
-  </ul>
-</section>
-
-<section id="record">
-  <h2>五、每日记录</h2>
+</section><section id="skin">
+  <h2>四、腿部与皮肤观察日志</h2>
+  <textarea id="skinNote" rows="4" placeholder="记录颜色、脱屑、痒、出血点变化..."></textarea>
+  <button onclick="saveSkinNote()">保存日志</button>
+</section><section id="record">
+  <h2>五、每日数据记录</h2>
   <table>
+    <tr><th>日期</th><th>体重(lb)</th><th>收缩压</th><th>舒张压</th><th>心率</th></tr>
     <tr>
-      <th>日期</th>
-      <th>体重(lb)</th>
-      <th>收缩压</th>
-      <th>舒张压</th>
-      <th>心率</th>
-      <th>是否穿静脉袜</th>
-    </tr>
-    <tr>
-      <td><input type="date"></td>
-      <td><input></td>
-      <td><input></td>
-      <td><input></td>
-      <td><input></td>
-      <td><input></td>
+      <td><input id="date"></td>
+      <td><input id="weight"></td>
+      <td><input id="sys"></td>
+      <td><input id="dia"></td>
+      <td><input id="hr"></td>
     </tr>
   </table>
+  <button onclick="saveRecord()">保存当天数据</button>
+</section><section id="trend">
+  <h2>六、趋势图</h2>
+  <h4>体重</h4><canvas id="wChart"></canvas>
+  <h4>血压</h4><canvas id="bpChart"></canvas>
+  <h4>心率</h4><canvas id="hrChart"></canvas>
+</section><section id="tools">
+  <h2>七、工具</h2>
+  <div class="tools">
+    <button onclick="exportData()">导出数据(JSON)</button>
+    <button onclick="window.print()">医生就诊打印版</button>
+    <button onclick="toggleDark()">切换深色模式</button>
+  </div>
 </section>
+</main><footer style="text-align:center;padding:20px;font-size:13px;">GitHub Pages · 本地数据</footer><script>
+let records = JSON.parse(localStorage.getItem('records')||'[]');
+let timeline = JSON.parse(localStorage.getItem('timeline')||'[]');
+date.valueAsDate = new Date();
+if(localStorage.getItem('dark')==='1') document.body.classList.add('dark');
 
-  </main>  <footer>
-    <p>个人健康管理页面 · GitHub Pages 托管</p>
-  </footer>
-</body>
+function saveRecord(){
+  records.push({date:date.value,weight:+weight.value,sys:+sys.value,dia:+dia.value,hr:+hr.value});
+  localStorage.setItem('records',JSON.stringify(records));
+  drawAll();
+}
+function saveSkinNote(){
+  if(!skinNote.value) return;
+  timeline.push({date:new Date().toLocaleDateString(),note:skinNote.value});
+  localStorage.setItem('timeline',JSON.stringify(timeline));
+  skinNote.value='';
+}
+function drawLine(canvas,arr,field){
+  const c=document.getElementById(canvas),ctx=c.getContext('2d');
+  c.width=c.offsetWidth;c.height=180;ctx.clearRect(0,0,c.width,c.height);
+  if(arr.length<2) return;
+  const vals=arr.map(r=>r[field]);
+  const max=Math.max(...vals),min=Math.min(...vals);
+  ctx.beginPath();
+  arr.forEach((r,i)=>{
+    const x=i*(c.width/(arr.length-1));
+    const y=c.height-(r[field]-min)/(max-min||1)*c.height;
+    i?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  });
+  ctx.stroke();
+}
+function drawBP(){
+  drawLine('bpChart',records,'sys');
+}
+function drawAll(){
+  drawLine('wChart',records,'weight');
+  drawLine('hrChart',records,'hr');
+  drawBP();
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify({records,timeline},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='health-data.json';a.click();
+}
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  localStorage.setItem('dark',document.body.classList.contains('dark')?'1':'0');
+}
+drawAll();
+</script></body>
 </html>
