@@ -42,12 +42,15 @@
       padding: 16px;
     }
     section {
+      transition: max-height .3s ease;
+      overflow: hidden;
       background: #fff;
       border-radius: 12px;
       padding: 16px;
       margin-bottom: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
+    section.collapsed { max-height: 48px; }
     body.dark section { background: #020617; }
     body.dark section { background: #020617; }
     h2 { margin-top: 0; border-left: 4px solid #2563eb; padding-left: 10px; }
@@ -96,7 +99,11 @@
     <li><a href="#tools">工具</a></li>
   </ul>
 </nav><main>
-<section id="goal">
+<section id="today">
+  <h2 onclick="toggleSection(this)">📅 今日概览（点击折叠/展开）</h2>
+  <ul id="todaySummary"></ul>
+</section><section id="goal">
+  <h2 onclick="toggleSection(this)">一、核心目标（点击折叠/展开）</h2>
   <h2>一、核心目标</h2>
   <ul>
     <li>稳步减脂，避免反弹</li>
@@ -105,6 +112,7 @@
     <li>皮肤逐步恢复</li>
   </ul>
 </section><section id="diet">
+  <h2 onclick="toggleSection(this)">二、饮食原则（点击折叠/展开）</h2>
   <h2>二、饮食原则</h2>
   <ul>
     <li>土豆 / 红薯作为主食替代</li>
@@ -112,6 +120,7 @@
     <li>微波炉可完成</li>
   </ul>
 </section><section id="routine">
+  <h2 onclick="toggleSection(this)">三、活动与静脉管理（点击折叠/展开）</h2>
   <h2>三、活动与静脉管理</h2>
   <ul>
     <li>下班步行约 1.4 英里</li>
@@ -119,10 +128,12 @@
     <li>白天穿 15–20 mmHg 静脉袜</li>
   </ul>
 </section><section id="skin">
+  <h2 onclick="toggleSection(this)">四、腿部与皮肤观察日志（点击折叠/展开）</h2>
   <h2>四、腿部与皮肤观察日志</h2>
   <textarea id="skinNote" rows="4" placeholder="记录颜色、脱屑、痒、出血点变化..."></textarea>
   <button onclick="saveSkinNote()">保存日志</button>
 </section><section id="record">
+  <h2 onclick="toggleSection(this)">五、每日数据记录（点击折叠/展开）</h2>
   <h2>五、每日数据记录</h2>
   <table>
     <tr><th>日期</th><th>体重(lb)</th><th>收缩压</th><th>舒张压</th><th>心率</th></tr>
@@ -136,11 +147,13 @@
   </table>
   <button onclick="saveRecord()">保存当天数据</button>
 </section><section id="trend">
+  <h2 onclick="toggleSection(this)">六、趋势图（点击折叠/展开）</h2>
   <h2>六、趋势图</h2>
   <h4>体重</h4><canvas id="wChart"></canvas>
   <h4>血压</h4><canvas id="bpChart"></canvas>
   <h4>心率</h4><canvas id="hrChart"></canvas>
 </section><section id="tools">
+  <h2 onclick="toggleSection(this)">七、工具（点击折叠/展开）</h2>
   <h2>七、工具</h2>
   <div class="tools">
     <button onclick="exportData()">导出数据(JSON)</button>
@@ -149,6 +162,11 @@
   </div>
 </section>
 </main><footer style="text-align:center;padding:20px;font-size:13px;">GitHub Pages · 本地数据</footer><script>
+function toggleSection(h){
+  const s=h.parentElement;
+  s.classList.toggle('collapsed');
+}
+
 let records = JSON.parse(localStorage.getItem('records')||'[]');
 let timeline = JSON.parse(localStorage.getItem('timeline')||'[]');
 date.valueAsDate = new Date();
@@ -157,7 +175,8 @@ if(localStorage.getItem('dark')==='1') document.body.classList.add('dark');
 function saveRecord(){
   records.push({date:date.value,weight:+weight.value,sys:+sys.value,dia:+dia.value,hr:+hr.value});
   localStorage.setItem('records',JSON.stringify(records));
-  drawAll();
+  updateToday();
+ drawAll();
 }
 function saveSkinNote(){
   if(!skinNote.value) return;
@@ -182,6 +201,19 @@ function drawLine(canvas,arr,field){
 function drawBP(){
   drawLine('bpChart',records,'sys');
 }
+function updateToday(){
+  const ul=document.getElementById('todaySummary');
+  if(!ul) return;
+  ul.innerHTML='';
+  if(!records.length){ ul.innerHTML='<li>暂无今日数据</li>'; return; }
+  const r=records[records.length-1];
+  const flags=[];
+  if(r.sys>=140||r.dia>=90) flags.push('⚠️ 血压偏高');
+  if(r.hr>=90) flags.push('⚠️ 静息心率偏高');
+  ul.innerHTML=`<li>体重：${r.weight||'-'} lb</li><li>血压：${r.sys||'-'} / ${r.dia||'-'}</li><li>心率：${r.hr||'-'}</li>`;
+  flags.forEach(f=>ul.innerHTML+=`<li style="color:#dc2626;font-weight:600;">${f}</li>`);
+}
+
 function drawAll(){
   drawLine('wChart',records,'weight');
   drawLine('hrChart',records,'hr');
