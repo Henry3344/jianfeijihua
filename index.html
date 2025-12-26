@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>个人健康与减脂管理方案</title>
   <style>
-    /* 基础重置，避免浏览器差异 */
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
     body {
@@ -17,21 +16,33 @@
     header {
       background: #2c7be5;
       color: #fff;
-      padding: 24px;
+      padding: 20px;
     }
-    header h1 {
-      margin: 0 0 8px 0;
-      font-size: 26px;
+    header h1 { margin: 0 0 6px 0; font-size: 24px; }
+    header p { margin: 0; opacity: 0.9; }
+    nav {
+      position: sticky;
+      top: 0;
+      background: #ffffffee;
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #e5e7eb;
+      z-index: 10;
     }
-    header p {
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
       margin: 0;
-      opacity: 0.9;
+      padding: 10px 16px;
+      gap: 12px;
     }
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px;
+    nav a {
+      text-decoration: none;
+      color: #2c7be5;
+      font-weight: 500;
+      font-size: 14px;
     }
+    main { max-width: 900px; margin: 0 auto; padding: 20px; }
     section {
       background: #fff;
       border-radius: 12px;
@@ -39,16 +50,8 @@
       margin-bottom: 20px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
-    h2 {
-      margin-top: 0;
-      font-size: 22px;
-      border-left: 4px solid #2c7be5;
-      padding-left: 10px;
-    }
-    h3 {
-      margin-bottom: 6px;
-      margin-top: 18px;
-    }
+    h2 { margin-top: 0; font-size: 22px; border-left: 4px solid #2c7be5; padding-left: 10px; }
+    h3 { margin-top: 16px; margin-bottom: 6px; }
     ul { padding-left: 20px; }
     li { margin-bottom: 6px; }
     .grid {
@@ -70,135 +73,130 @@
       font-size: 12px;
       margin-right: 6px;
     }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 8px;
+      text-align: center;
+    }
+    th { background: #f1f5fb; }
+    input {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+    }
     footer {
       text-align: center;
       color: #666;
       padding: 20px;
       font-size: 13px;
     }
-    .warn {
-      background: #fff3cd;
-      border-left: 4px solid #ffb703;
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin-top: 12px;
-    }
-    .ok {
-      background: #e9f7ef;
-      border-left: 4px solid #2ecc71;
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin-top: 12px;
+    @media (prefers-color-scheme: dark) {
+      body { background: #0f172a; color: #e5e7eb; }
+      section { background: #020617; }
+      nav { background: #020617ee; }
+      table, th, td { border-color: #334155; }
+      th { background: #020617; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>个人健康与减脂管理方案</h1>
-    <p>适用于：183cm / 256lb / 男性 / 下肢静脉淤积风险 / 血压偏高</p>
-  </header>  <main>
-    <section>
+    <p>长期管理 · 可迭代 · 低负担</p>
+  </header>  <nav>
+    <ul>
+      <li><a href="#goal">目标</a></li>
+      <li><a href="#diet">饮食</a></li>
+      <li><a href="#routine">作息</a></li>
+      <li><a href="#skin">腿与皮肤</a></li>
+      <li><a href="#record">每日记录</a></li>
+    </ul>
+  </nav>  <main>
+    <section id="goal">
       <h2>一、核心目标</h2>
       <ul>
-        <li>稳步减脂（不反弹、不伤皮肤）</li>
-        <li>降低下肢静脉压力，减少色素沉着与出血点风险</li>
-        <li>控制血压，改善心率与微循环</li>
-        <li>长期可执行、低负担</li>
+        <li>稳步减脂（不反弹）</li>
+        <li>降低下肢静脉压力</li>
+        <li>控制血压与心率</li>
+        <li>长期可执行</li>
       </ul>
-    </section><section>
-  <h2>二、每日活动基础</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>通勤 & 工作</h3>
-      <ul>
-        <li>公交上下班</li>
-        <li>工作期间轻度走动（拿药、挂药）</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>下班运动</h3>
-      <ul>
-        <li>步行回家约 1.4 英里（≈2.25 km）</li>
-        <li>有利于下肢静脉回流</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>三、饮食总原则</h2>
-  <ul>
-    <li><span class="tag">低盐</span> <span class="tag">高钾</span> <span class="tag">低油</span> <span class="tag">高饱腹</span></li>
-    <li>主食以 <strong>土豆 / 红薯</strong> 替代白米白面</li>
-    <li>避免主食叠加（不同时吃米饭 + 土豆 + 红薯）</li>
-    <li>水果作为配角，不作为主要补钾来源</li>
-  </ul>
-</section>
-
-<section>
-  <h2>四、每日进食结构（推荐模板）</h2>
+    </section><section id="diet">
+  <h2>二、饮食结构</h2>
   <div class="grid">
     <div class="card">
       <h3>早餐（极简）</h3>
       <ul>
-        <li>鸡蛋 1 个 或</li>
-        <li>牛奶 / 无糖酸奶 1 小杯 或</li>
-        <li>半个红薯 / 土豆</li>
+        <li>鸡蛋 1 个</li>
+        <li>或 牛奶 / 酸奶</li>
       </ul>
     </div>
     <div class="card">
-      <h3>午餐（正常）</h3>
+      <h3>午餐</h3>
       <ul>
-        <li>蛋白质：鱼 / 鸡 / 瘦肉 / 豆制品</li>
-        <li>大量蔬菜</li>
+        <li>蛋白质 + 蔬菜</li>
         <li>主食不过量</li>
       </ul>
     </div>
     <div class="card">
-      <h3>晚餐（清淡）</h3>
+      <h3>晚餐</h3>
       <ul>
         <li>鸡蛋 / 瘦肉</li>
-        <li>青椒、黄瓜、西红柿</li>
-        <li>土豆 ≤300g 或 红薯 ≤200g（二选一）</li>
-        <li>草莓 / 蓝莓 + 梨 ≤1 个</li>
+        <li>土豆 ≤300g 或 红薯 ≤200g</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section>
-  <h2>五、不开火微波炉方案</h2>
+<section id="routine">
+  <h2>三、活动与作息</h2>
   <ul>
-    <li>鸡蛋羹：中低火分段加热，避免过老</li>
-    <li>土豆 / 红薯：扎孔后微波，中途翻面</li>
-    <li>不加油、不加糖、不封包</li>
-  </ul>
-  <div class="ok">该方案有利于控盐、控油、保留钾和蛋白质。</div>
-</section>
-
-<section>
-  <h2>六、喝水与生活习惯</h2>
-  <ul>
-    <li>每日总水量目标：2.5–3 L，分散饮用</li>
-    <li>避免久坐，每 30–60 分钟活动一下小腿</li>
-    <li>白天穿 15–20 mmHg 静脉曲张袜</li>
-    <li>晚上抬高小腿休息</li>
+    <li>下班步行约 1.4 英里</li>
+    <li>避免久坐，每小时活动小腿</li>
+    <li>白天穿 15–20 mmHg 静脉袜</li>
   </ul>
 </section>
 
-<section>
-  <h2>七、皮肤护理要点</h2>
+<section id="skin">
+  <h2>四、腿部与皮肤观察</h2>
   <ul>
-    <li>每日 2 次使用 Eucerin Advanced Repair</li>
-    <li>凡士林仅点涂最干燥区域</li>
-    <li>不封包，避免抓挠</li>
-    <li>若保湿后仍持续瘙痒，可短期使用 1% 氢化可的松</li>
+    <li>每日 2 次保湿（Eucerin）</li>
+    <li>凡士林点涂干燥区域</li>
+    <li>观察颜色、脱屑、出血点变化</li>
   </ul>
-  <div class="warn">如出现渗液、明显红肿、疼痛或出血点增多，应就医评估。</div>
+</section>
+
+<section id="record">
+  <h2>五、每日记录</h2>
+  <table>
+    <tr>
+      <th>日期</th>
+      <th>体重(lb)</th>
+      <th>收缩压</th>
+      <th>舒张压</th>
+      <th>心率</th>
+      <th>是否穿静脉袜</th>
+    </tr>
+    <tr>
+      <td><input type="date"></td>
+      <td><input></td>
+      <td><input></td>
+      <td><input></td>
+      <td><input></td>
+      <td><input></td>
+    </tr>
+  </table>
 </section>
 
   </main>  <footer>
-    <p>本页面用于个人健康管理记录，可随时在 GitHub 更新迭代。</p>
+    <p>个人健康管理页面 · GitHub Pages 托管</p>
   </footer>
 </body>
 </html>
